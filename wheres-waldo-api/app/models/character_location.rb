@@ -1,0 +1,2 @@
+class CharacterLocation < ApplicationRecord
+end
