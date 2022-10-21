@@ -1,0 +1,64 @@
+.Game-preview {
+  width: 500px;
+}
+
+.Game-container {
+  width: 900px;
+  position: relative;
+}
+
+.Game-image {
+  height: 100%;
+  width: 100%;
+}
+
+.Game-form {
+  position: absolute;
+  background-color: #fafafa;
+  padding: 0.75rem;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  box-sizing: border-box;
+}
+
+.Game-button {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-shadow: none;
+  display: inline-flex;
+  height: 2.5em;
+  justify-content: flex-start;
+  line-height: 1.5;
+  padding-bottom: calc(0.5em - 1px);
+  padding-left: calc(0.75em - 1px);
+  padding-right: calc(0.75em - 1px);
+  padding-top: calc(0.5em - 1px);
+  position: relative;
+  vertical-align: top;
+  outline: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  width: 100%;
+  background-color: #2563eb;
+  color: #fafafa;
+  display: block;
+}
+
+.Game-button:not(:last-child) {
+  margin-bottom: 0.25rem;
+}
+
+.Game-button:hover {
+  background-color: #3b82f6;
+}
+
+.Game-button:active {
+  background-color: #1d4ed8;
+}
