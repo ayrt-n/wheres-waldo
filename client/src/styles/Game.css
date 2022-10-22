@@ -68,3 +68,18 @@
 .Game-button:active {
   background-color: #1d4ed8;
 }
+
+.Game-avatar {
+  width: 100px;
+  height: auto;
+  border: 2px red solid;
+  border-radius: 5px;
+}
+
+.Game-avatar:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
+.Game-avatar.found {
+  border-color: green;
+}
