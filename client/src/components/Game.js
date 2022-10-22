@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import '../styles/Game.css';
 import gameImage from '../assets/images/ww-ski-slopes.jpeg';
 import GameForm from './GameForm';
+import Avatar from './Avatar';
 
 function Game() {
   const [characters, setCharacters] = useState([]);
@@ -66,6 +67,13 @@ function Game() {
             submitCallback={displayFeedback}
           />
         }
+      </div>
+      <div className="Game-characters">
+        {characters.map((character) => {
+          return (
+            <Avatar character={character} key={character.id} />
+          );
+        })}
       </div>
       <div>
         {feedback}
