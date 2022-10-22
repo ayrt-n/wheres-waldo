@@ -8,6 +8,7 @@ function Game() {
   const [characters, setCharacters] = useState([]);
   const [coordinates, setCoordinates] = useState(null);
   const [formActive, setFormActive] = useState(false);
+  const [feedback, setFeedback] = useState(null);
   const { gameId } = useParams();
 
   // Fetch game data
@@ -42,19 +43,33 @@ function Game() {
     return () => document.removeEventListener('click', handleClick);
   }, []);
 
+  const displayFeedback = (response) => {
+    setFormActive(false);
+    if (response.response) {
+      setFeedback('Good find!');
+    } else {
+      setFeedback('Incorrect. Try again!')
+    }
+  }
 
   return (
-    <div className="Game-container" id="Game-container">
-      <img src={gameImage} alt="" className="Game-image" id="Game-image" />
-      {
-        formActive
-        && <GameForm
-          characters={characters}
-          gameId={gameId}
-          coordinates={coordinates}
-          hidden={!formActive}
-        />
-      }
+    <div>
+      <div className="Game-container" id="Game-container">
+        <img src={gameImage} alt="" className="Game-image" id="Game-image" />
+        {
+          formActive
+          && <GameForm
+            characters={characters}
+            gameId={gameId}
+            coordinates={coordinates}
+            hidden={!formActive}
+            submitCallback={displayFeedback}
+          />
+        }
+      </div>
+      <div>
+        {feedback}
+      </div>
     </div>
   );
 }
