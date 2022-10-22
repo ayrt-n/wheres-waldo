@@ -7,6 +7,8 @@ module Api
       end
 
       def show
+        @game = Game.find(params[:id])
+        render json: @game, include: { characters: { only: %i[id name image_name] } }
       end
     end
   end
