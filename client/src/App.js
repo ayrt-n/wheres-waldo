@@ -9,6 +9,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<GameSelection />} />
+        <Route path="/games" element={<GameSelection />} />
         <Route path="/games/:id" element={<Game />} />
       </Routes>
     </BrowserRouter>
