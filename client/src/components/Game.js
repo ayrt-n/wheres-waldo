@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import '../styles/Game.css';
-import gameImage from '../assets/images/ww-ski-slopes.jpeg';
 import GameForm from './GameForm';
 import Avatar from './Avatar';
 import Marker from './Marker';
 
 function Game() {
+  const [gameImage, setGameImage] = useState(null);
   const [characters, setCharacters] = useState([]);
   const [coordinates, setCoordinates] = useState(null);
   const [formActive, setFormActive] = useState(false);
@@ -24,7 +24,8 @@ function Game() {
     })
     .then((data) => {
       setCharacters(data.characters);
-      console.log(data.characters);
+      setGameImage(require(`../assets/images/${data.image_name}`))
+      console.log(data);
     });
   }, [gameId])
   
@@ -50,12 +51,11 @@ function Game() {
   const displayFeedback = (response) => {
     setFormActive(false);
     if (response.correct) {
-      setFeedback('Good find!');
       markCharacterFound(response.details.character_id);
       createFoundMarker(
         response.details.x_coordinates,
         response.details.y_coordinates,
-        response.details.character_id  
+        response.details.character_id
       );
     } else {
       setFeedback('Incorrect. Try again!')
