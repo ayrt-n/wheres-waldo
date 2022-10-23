@@ -1,5 +1,19 @@
+.Game-selection {
+  width: min-content;
+  margin: 0 auto;
+  text-align: center;
+  padding: 2rem;
+}
+
+.Game-selection-header {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
 .Game-preview {
   width: 500px;
+  margin-bottom: 2.5rem;
 }
 
 .Game-container {
@@ -16,6 +30,7 @@
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
+  margin-bottom: 0.75rem;
 }
 
 .Game-form {
@@ -50,11 +65,24 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  text-decoration: none;
 
-  width: 100%;
   background-color: #2563eb;
   color: #fafafa;
   display: block;
+}
+
+.Game-button.fullsize {
+  width: 100%;
+}
+
+.Game-button.small {
+  width: 75px;
+  height: auto;
+}
+
+.Game-button.center {
+  margin: 0 auto;
 }
 
 .Game-button:not(:last-child) {
