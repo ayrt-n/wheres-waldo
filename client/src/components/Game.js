@@ -4,12 +4,14 @@ import '../styles/Game.css';
 import gameImage from '../assets/images/ww-ski-slopes.jpeg';
 import GameForm from './GameForm';
 import Avatar from './Avatar';
+import Marker from './Marker';
 
 function Game() {
   const [characters, setCharacters] = useState([]);
   const [coordinates, setCoordinates] = useState(null);
   const [formActive, setFormActive] = useState(false);
   const [feedback, setFeedback] = useState(null);
+  const [markers, setMarkers] = useState([]);
   const { gameId } = useParams();
 
   // Fetch game data
@@ -29,7 +31,6 @@ function Game() {
   // Set up click event handler to play the game
   useEffect(() => {
     function handleClick(e) {
-      setFeedback('');
       const clickedGame = e.target.closest('#Game-container');
       if (!clickedGame) {
         setFormActive(false);
@@ -51,6 +52,11 @@ function Game() {
     if (response.correct) {
       setFeedback('Good find!');
       markCharacterFound(response.details.character_id);
+      createFoundMarker(
+        response.details.x_coordinates,
+        response.details.y_coordinates,
+        response.details.character_id  
+      );
     } else {
       setFeedback('Incorrect. Try again!')
     }
@@ -66,6 +72,10 @@ function Game() {
     })));
   };
 
+  const createFoundMarker = (x_coordinates, y_coordinates, id) => {
+    setMarkers((prev) => (prev.concat({x_coordinates, y_coordinates, id})));
+  };
+
   return (
     <div>
       <div className="Game-container" id="Game-container">
@@ -79,6 +89,13 @@ function Game() {
             hidden={!formActive}
             submitCallback={displayFeedback}
           />
+        }
+        {
+          markers.map((marker) => {
+            return (
+              <Marker coordinates={marker} key={marker.id} />
+            );
+          })
         }
       </div>
       <div className="Game-characters">
