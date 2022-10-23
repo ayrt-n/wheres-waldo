@@ -17,8 +17,7 @@ function GameSelection() {
   }, []);
 
   return (
-    <div>
-      <div>Game Selection Time!!!</div>
+    <div className="Game-selection">
       {games.map((game) => (<GamePreview key={game.id} game={game} />))}
     </div>
   );

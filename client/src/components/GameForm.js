@@ -35,7 +35,7 @@ function GameForm({ characters, gameId, coordinates, submitCallback }) {
           <button
             name="character_id"
             value={character.id}
-            className="Game-button"
+            className="Game-button fullsize"
             key={character.id}
             onClick={submitHandler}
           >

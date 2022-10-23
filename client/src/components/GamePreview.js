@@ -5,12 +5,13 @@ function GamePreview({ game }) {
   const image = require(`../assets/images/${game.image_name}`);
 
   return (
-    <Link to={`games/${game.id}`}>
-      <div className="Game-preview">
-        <h1>{game.name}</h1>
-        <img src={image} alt="" className="Game-image" />
-      </div>
-    </Link>
+    <div className="Game-preview">
+      <h1 className="Game-selection-header">{game.name}</h1>
+      <img src={image} alt="" className="Game-image" />
+      <Link to={`games/${game.id}`} className="Game-button small center">
+        Start!
+      </Link>
+    </div>
   );
 }
 
