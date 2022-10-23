@@ -22,12 +22,14 @@ function Game() {
     })
     .then((data) => {
       setCharacters(data.characters);
+      console.log(data.characters);
     });
   }, [gameId])
   
   // Set up click event handler to play the game
   useEffect(() => {
     function handleClick(e) {
+      setFeedback('');
       const clickedGame = e.target.closest('#Game-container');
       if (!clickedGame) {
         setFormActive(false);
@@ -46,12 +48,23 @@ function Game() {
 
   const displayFeedback = (response) => {
     setFormActive(false);
-    if (response.response) {
+    if (response.correct) {
       setFeedback('Good find!');
+      markCharacterFound(response.details.character_id);
     } else {
       setFeedback('Incorrect. Try again!')
     }
-  }
+  };
+
+  const markCharacterFound = (character_id) => {
+    setCharacters((prev) => (prev.map((character) => {
+      if (character.id === character_id) {
+        return {...character, found: true}
+      } else {
+        return character;
+      }
+    })));
+  };
 
   return (
     <div>
