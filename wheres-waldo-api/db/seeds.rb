@@ -13,24 +13,24 @@ odlaw = Character.create(name: 'Odlaw', image_name:'odlaw-avatar.jpeg')
 CharacterLocation.create(
   character_id: whitebeard.id,
   game_id: ski.id,
-  x_coordinates: [53, 73],
-  y_coordinates: [424, 448]
+  x_coordinates: [49, 73],
+  y_coordinates: [419, 448]
 )
 CharacterLocation.create(
   character_id: waldo.id,
   game_id: ski.id,
-  x_coordinates: [761, 779],
-  y_coordinates: [412, 441]
+  x_coordinates: [751, 783],
+  y_coordinates: [402, 441]
 )
 CharacterLocation.create(
   character_id: wilma.id,
   game_id: ski.id,
-  x_coordinates: [435, 448],
-  y_coordinates: [235, 248]
+  x_coordinates: [430, 448],
+  y_coordinates: [227, 248]
 )
 CharacterLocation.create(
   character_id: odlaw.id,
   game_id: ski.id,
-  x_coordinates: [279, 291],
-  y_coordinates: [360, 372]
+  x_coordinates: [276, 291],
+  y_coordinates: [353, 372]
 )
