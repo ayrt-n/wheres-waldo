@@ -11,7 +11,6 @@ function Game() {
   const [coordinates, setCoordinates] = useState(null);
   const [formActive, setFormActive] = useState(false);
   const [feedback, setFeedback] = useState(null);
-  const [markers, setMarkers] = useState([]);
   const { gameId } = useParams();
 
   // Fetch game data
@@ -23,11 +22,17 @@ function Game() {
       return response.json();
     })
     .then((data) => {
-      setCharacters(data.characters);
-      setGameImage(require(`../assets/images/${data.image_name}`))
-      console.log(data);
+      setGameImage(require(`../assets/images/${data.image_name}`));
+      setCharacters(data.characters.map((character) => ({
+        ...character,
+        isFound: false,
+        coordinates: {
+          x: null,
+          y: null,
+        }
+      })));
     });
-  }, [gameId])
+  }, [gameId]);
   
   // Set up click event handler to play the game
   useEffect(() => {
@@ -51,29 +56,28 @@ function Game() {
   const displayFeedback = (response) => {
     setFormActive(false);
     if (response.correct) {
-      markCharacterFound(response.details.character_id);
-      createFoundMarker(
-        response.details.x_coordinates,
-        response.details.y_coordinates,
-        response.details.character_id
-      );
+      markCharacterFound(response.details);
+      setFeedback('Nice find!');
     } else {
       setFeedback('Incorrect. Try again!')
     }
   };
 
-  const markCharacterFound = (character_id) => {
+  const markCharacterFound = (response) => {
     setCharacters((prev) => (prev.map((character) => {
-      if (character.id === character_id) {
-        return {...character, found: true}
+      if (character.id === response.character_id) {
+        return {
+          ...character,
+          isFound: true,
+          coordinates: {
+            x: response.x_coordinates,
+            y: response.y_coordinates,
+          }
+        }
       } else {
         return character;
       }
     })));
-  };
-
-  const createFoundMarker = (x_coordinates, y_coordinates, id) => {
-    setMarkers((prev) => (prev.concat({x_coordinates, y_coordinates, id})));
   };
 
   return (
@@ -91,10 +95,13 @@ function Game() {
           />
         }
         {
-          markers.map((marker) => {
-            return (
-              <Marker coordinates={marker} key={marker.id} />
-            );
+          characters.map((character) => {
+            if (character.isFound) {
+              return (
+                <Marker coordinates={character.coordinates} key={character.id} />
+              );
+            }
+            return null;
           })
         }
       </div>
