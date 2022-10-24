@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import '../styles/Game.css';
 import GameForm from './GameForm';
@@ -12,6 +12,7 @@ function Game() {
   const [formActive, setFormActive] = useState(false);
   const [feedback, setFeedback] = useState(null);
   const { gameId } = useParams();
+  const isGameLoaded = useRef(false);
 
   // Fetch game data
   useEffect(() => {
@@ -31,6 +32,7 @@ function Game() {
           y: null,
         }
       })));
+      isGameLoaded.current = true;
     });
   }, [gameId]);
   
@@ -53,6 +55,17 @@ function Game() {
     return () => document.removeEventListener('click', handleClick);
   }, []);
 
+  // Check if player has found all characters for win
+  useEffect(() => {
+    if (isGameLoaded.current) {
+      const remainingCharacters = characters.filter((character) => !character.isFound);
+      if (!remainingCharacters.length > 0) {
+        console.log('yup');
+      }
+    }
+  }, [characters])
+
+  // Submit callback to run through game flow methods
   const displayFeedback = (response) => {
     setFormActive(false);
     if (response.correct) {
@@ -63,6 +76,7 @@ function Game() {
     }
   };
 
+  // Update characters state if character has been found
   const markCharacterFound = (response) => {
     setCharacters((prev) => (prev.map((character) => {
       if (character.id === response.character_id) {
