@@ -1,15 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import '../styles/Game.css';
-import GameForm from './GameForm';
 import Avatar from './Avatar';
-import Marker from './Marker';
+import GameContainer from './GameContainer';
 
 function Game() {
   const [gameImage, setGameImage] = useState(null);
   const [characters, setCharacters] = useState([]);
-  const [coordinates, setCoordinates] = useState(null);
-  const [formActive, setFormActive] = useState(false);
   const [feedback, setFeedback] = useState(null);
   const { gameId } = useParams();
   const isGameLoaded = useRef(false);
@@ -35,25 +32,6 @@ function Game() {
       isGameLoaded.current = true;
     });
   }, [gameId]);
-  
-  // Set up click event handler to play the game
-  useEffect(() => {
-    function handleClick(e) {
-      const clickedGame = e.target.closest('#Game-container');
-      if (!clickedGame) {
-        setFormActive(false);
-        return;
-      }
-
-      if (e.target.id === 'Game-image') {
-        setCoordinates([e.offsetX, e.offsetY]);
-        setFormActive(true);
-      }
-    }
-
-    document.addEventListener('click', handleClick);
-    return () => document.removeEventListener('click', handleClick);
-  }, []);
 
   // Check if player has found all characters for win
   useEffect(() => {
@@ -67,7 +45,6 @@ function Game() {
 
   // Submit callback to run through game flow methods
   const displayFeedback = (response) => {
-    setFormActive(false);
     if (response.correct) {
       markCharacterFound(response.details);
       setFeedback('Nice find!');
@@ -96,29 +73,12 @@ function Game() {
 
   return (
     <div>
-      <div className="Game-container" id="Game-container">
-        <img src={gameImage} alt="" className="Game-image" id="Game-image" />
-        {
-          formActive
-          && <GameForm
-            characters={characters}
-            gameId={gameId}
-            coordinates={coordinates}
-            hidden={!formActive}
-            submitCallback={displayFeedback}
-          />
-        }
-        {
-          characters.map((character) => {
-            if (character.isFound) {
-              return (
-                <Marker coordinates={character.coordinates} key={character.id} />
-              );
-            }
-            return null;
-          })
-        }
-      </div>
+      <GameContainer
+        characters={characters}
+        gameImage={gameImage}
+        gameId={gameId}
+        submitCallback={displayFeedback}
+      />
       <div className="Game-characters">
         {characters.map((character) => {
           return (
