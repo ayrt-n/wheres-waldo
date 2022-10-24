@@ -31,17 +31,20 @@ function GameForm({ characters, gameId, coordinates, submitCallback }) {
       <input name="y" type="hidden" value={coordinates[1]} />
       <input name="game_id" type="hidden" value={gameId} />
       {characters.map((character) => {
-        return (
-          <button
-            name="character_id"
-            value={character.id}
-            className="Game-button fullsize"
-            key={character.id}
-            onClick={submitHandler}
-          >
-            {character.name}
-          </button>
-        );
+        if (!character.isFound) {
+          return (
+            <button
+              name="character_id"
+              value={character.id}
+              className="Game-button fullsize"
+              key={character.id}
+              onClick={submitHandler}
+            >
+              {character.name}
+            </button>
+          );
+        }
+        return null;
       })}
     </form>
   );
