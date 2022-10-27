@@ -3,11 +3,16 @@ import { useParams } from 'react-router-dom';
 import '../styles/Game.css';
 import Avatar from './Avatar';
 import GameContainer from './GameContainer';
+import ScoreForm from './ScoreForm';
+import Leaderboards from './Leaderboards';
 
 function Game() {
   const [gameImage, setGameImage] = useState(null);
   const [characters, setCharacters] = useState([]);
   const [feedback, setFeedback] = useState(null);
+  const [gameOver, setGameOver] = useState(false);
+  const [scoreFormActive, setScoreFormActive] = useState(false);
+  const [startTime, setStartTime] = useState(null)
   const { gameId } = useParams();
   const isGameLoaded = useRef(false);
 
@@ -30,6 +35,7 @@ function Game() {
         }
       })));
       isGameLoaded.current = true;
+      setStartTime(new Date());
     });
   }, [gameId]);
 
@@ -38,7 +44,7 @@ function Game() {
     if (isGameLoaded.current) {
       const remainingCharacters = characters.filter((character) => !character.isFound);
       if (!remainingCharacters.length > 0) {
-        console.log('yup');
+        setGameOver(true);
       }
     }
   }, [characters])
@@ -71,8 +77,15 @@ function Game() {
     })));
   };
 
+  // Switch from submit screen to show leaderboard
+  const showLeaderboards = () => {
+    setScoreFormActive(true);
+  };
+
   return (
     <div>
+      {gameOver && scoreFormActive && <ScoreForm startTime={startTime} gameId={gameId} onSubmit={showLeaderboards} />}
+      {gameOver && !scoreFormActive && <Leaderboards gameId={gameId} />}
       <GameContainer
         characters={characters}
         gameImage={gameImage}
