@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Modal from './Modal';
 
 function Leaderboards({ gameId }) {
   const [leaderboards, setLeaderboards] = useState([]);
@@ -17,7 +18,7 @@ function Leaderboards({ gameId }) {
   }, [gameId])
 
   return (
-    <div>
+    <Modal>
       <h1>Leaderboards</h1>
       <table>
         <thead>
@@ -39,7 +40,7 @@ function Leaderboards({ gameId }) {
           })}
         </tbody>
       </table>
-    </div>
+    </Modal>
   );
 }
 
