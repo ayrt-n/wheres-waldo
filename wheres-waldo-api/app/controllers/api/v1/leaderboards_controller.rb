@@ -3,6 +3,8 @@ module Api
     class LeaderboardsController < ApplicationController
       def index
         @leaderboards = Score.limit(5).order(ellapsed_time: :asc)
+
+        render json: @leaderboards
       end
 
       def create
