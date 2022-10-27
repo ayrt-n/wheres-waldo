@@ -1,0 +1,12 @@
+.Modal-container {
+  position: absolute;
+  z-index: 2;
+  background-color: #fefefe;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  top: 15%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
