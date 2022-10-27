@@ -59,3 +59,7 @@ CharacterLocation.create(
   x_coordinates: [57, 72],
   y_coordinates: [318, 337]
 )
+
+ski.scores.create(name: 'RoadRunner', ellapsed_time: '0:22')
+ski.scores.create(name: 'LewisHamilton', ellapsed_time: '0:14')
+ski.scores.create(name: 'FastDude23', ellapsed_time: '0:59')
